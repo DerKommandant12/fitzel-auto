@@ -5,7 +5,6 @@
  */
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "@/_core/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
@@ -22,8 +21,6 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 export default function Home() {
   const { hash } = useLocation();
-  // The userAuth hooks provides authentication state
-  useAuth();
 
   const { isAuthenticated: adminAuth, login } = useAdminAuth();
   const [loginModalOpen, setLoginModalOpen] = useState(false);

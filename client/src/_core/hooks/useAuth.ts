@@ -15,20 +15,38 @@ function isInvalidUrlError(error: unknown): boolean {
   );
 }
 
-export function useAuth(options?: UseAuthOptions) {
-  let skipAuth = false;
-  let redirectPath: string;
-  if (options?.redirectPath !== undefined) {
-    redirectPath = options.redirectPath;
-  } else {
+/** Manus OAuth is opt-in; the public dealership site stays open without login. */
+export function shouldSkipManusAuth(): boolean {
+  if (import.meta.env.VITE_ENABLE_MANUS_AUTH === "true") {
+    const portal = import.meta.env.VITE_OAUTH_PORTAL_URL;
+    const appId = import.meta.env.VITE_APP_ID;
+    if (!portal || !appId) return true;
     try {
-      redirectPath = getLoginUrl();
-    } catch (error: unknown) {
-      if (isInvalidUrlError(error)) {
-        skipAuth = true;
-        redirectPath = "";
-      } else {
-        throw error;
+      new URL(`${portal}/app-auth`);
+      return false;
+    } catch {
+      return true;
+    }
+  }
+  return true;
+}
+
+export function useAuth(options?: UseAuthOptions) {
+  let skipAuth = shouldSkipManusAuth();
+  let redirectPath = "";
+
+  if (!skipAuth) {
+    if (options?.redirectPath !== undefined) {
+      redirectPath = options.redirectPath;
+    } else {
+      try {
+        redirectPath = getLoginUrl();
+      } catch (error: unknown) {
+        if (isInvalidUrlError(error)) {
+          skipAuth = true;
+        } else {
+          throw error;
+        }
       }
     }
   }
