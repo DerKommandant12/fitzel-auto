@@ -4,6 +4,7 @@
  */
 import { Phone, Clock } from "lucide-react";
 import { FITZEL_LOGO_URL } from "@/lib/brand";
+import { companyLegalLines } from "@/lib/company";
 
 const TBI_BANK_LOGO =
   "https://res.cloudinary.com/djgk2muyc/image/upload/v1779138739/Tbi_Bank_id28uhzJQh_0_jj8xzm.png";
@@ -51,10 +52,11 @@ export default function Footer() {
               servicii de calitate.
             </p>
             <div className="space-y-2 text-xs text-white/30" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              <div><strong className="text-white/50">Nume Firmă:</strong> [INTRODUCE NUME FIRMA SRL]</div>
-              <div><strong className="text-white/50">CUI:</strong> [INTRODUCE CUI]</div>
-              <div><strong className="text-white/50">Nr. Reg. Com:</strong> [INTRODUCE J/...]</div>
-              <div><strong className="text-white/50">Adresă:</strong> 727573 Spătărești, România</div>
+              {companyLegalLines().map(({ label, value }) => (
+                <div key={label}>
+                  <strong className="text-white/50">{label}:</strong> {value}
+                </div>
+              ))}
             </div>
           </div>
 
