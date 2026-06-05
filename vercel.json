@@ -1,5 +1,10 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/((?!google8903994cc167b115\\.html$|legal\\.html$).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
