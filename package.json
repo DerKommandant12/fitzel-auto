@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
     "build": "node node_modules/vite/bin/vite.js build",
+    "deploy:hosting": "npm run build && npx firebase deploy --only hosting",
     "start": "NODE_ENV=production node dist/index.js",
     "check": "tsc --noEmit",
     "format": "prettier --write .",

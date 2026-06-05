@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/((?!google8903994cc167b115\\.html$|legal\\.html$).*)",
+      "source": "/((?!google8903994cc167b115\\.html$|legal\\.html$|sitemap\\.xml$).*)",
       "destination": "/index.html"
     }
   ]
